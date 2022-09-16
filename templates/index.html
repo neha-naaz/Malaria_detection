@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  <link rel="stylesheet" href="static/assets/css/styles1.css">
+  <link rel="stylesheet" href="static/assets/java.js">
+</head>
+<body>
+<div class="fullscreen nopadding">
+<!--  <div id="header">-->
+<!--    <img src="https://blog.codepen.io/wp-content/uploads/2012/06/Button-Black-Small.png" width="50px" />-->
+
+<!--  </div>-->
+  <div class="header">
+    <h1>Malaria Detection</h1>
+  </div>
+</div>
+
+<div class="semitrans">
+  <h1>Upload MALARIA CELL IMAGE for detection</h1>
+  <p>Upload images only in .png or .jpg or .jpeg or .gif format</p>
+  <p>
+	{% with messages = get_flashed_messages() %}
+	  {% if messages %}
+		<ul class=flashes>
+		{% for message in messages %}
+		  <li>{{ message }}</li>
+		{% endfor %}
+		</ul>
+	  {% endif %}
+	{% endwith %}
+</p>
+
+<form method="post" action="/" enctype="multipart/form-data">
+    <dl>
+		<p>
+			<input type="file" name="files[]" multiple="false" autocomplete="off" required>
+			<input type="submit" value="Predict">
+		</p>
+    </dl>
+
+</form>
+
+{% if filenames %}
+	{% for filename in filenames %}
+		<div>
+			<img src="{{ url_for('display_image', filename=filename) }}">
+			<p>Result:</p><h3>{{result}}</h3>
+		</div>
+	{% endfor %}
+{% endif %}
+</div>
+
+</body>
+</html>
